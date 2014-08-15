@@ -9,7 +9,7 @@ Mp4BoxSharp
 **PM> Install-Package Mp4BoxSharp**
 https://www.nuget.org/packages/Mp4BoxSharp/
 
-## Example
+## Examples
 
 ### Concatenate mp4s synchron
 ```
@@ -52,8 +52,8 @@ private void mp4BoxSharpAsync_Progress(object sender, EventArgs e)
 ```
 
 ## FAQ
-Does it work on non x86-compatibile systems?
+- Does it work on non x86-compatibile systems?
 No
-Does ist work on x86 and x64 systems?
+- Does ist work on x86 and x64 systems?
 Yes
 
