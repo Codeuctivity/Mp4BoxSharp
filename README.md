@@ -7,12 +7,11 @@ Mp4BoxSharp
 - Get it from Nuget:
 
 **PM> Install-Package Mp4BoxSharp**
-
 https://www.nuget.org/packages/Mp4BoxSharp/
 
 ## Example
 
-### Calling catination of mp4s synchron
+### Concatenate mp4s synchron
 ```
 function test() {
   mp4boxSharp.mp4BoxSharpSync mp4boxSync = new mp4boxSharp.mp4BoxSharpSync();
@@ -23,7 +22,7 @@ function test() {
 }
 ```
 
-### Calling catination of mp4s asynchron
+### Concatenate mp4s asynchron
 ```
 private mp4boxSharp.mp4BoxSharpAsync mp4BoxSharpAsync = new mp4boxSharp.mp4BoxSharpAsync();
 private void buttonStartConcatinationAsync_Click(object sender, EventArgs e)
