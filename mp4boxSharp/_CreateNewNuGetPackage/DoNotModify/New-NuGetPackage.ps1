@@ -1190,18 +1190,17 @@ try
 		Write-Verbose $packOutput
 	
 	    # Get the path the NuGet Package was created to, and write it to the output stream.
-	    $match = $NUGET_EXE_SUCCESSFULLY_CREATED_PACKAGE_MESSAGE_REGEX.Match($packOutput)
-	    if ($match.Success)
-	    {
-		    $nuGetPackageFilePath = $match.Groups["FilePath"].Value
-			
-			# Have this cmdlet return the path that the new NuGet Package was created to.
-			# This should be the only code that uses Write-Output, as it is the only thing that should be returned by the cmdlet.
-			Write-Output $nuGetPackageFilePath
-	    }
+		$start = $packOutput.LastIndexOf(':\') - 1
+		$end = $packOutput.IndexOf('.nupkg') + '.nupkg'.Length
+		$path = $packOutput.Substring($start,$end-$start)
+		if (Test-Path $path)
+		{
+		$nuGetPackageFilePath = $path
+		Write-Output $nuGetPackageFilePath
+		}
 	    else
 	    {
-		    throw "Could not determine where NuGet Package was created to. This typically means that an error occurred while NuGet.exe was packing it. Look for errors from NuGet.exe above (in the console window), or in the following NuGet.exe output. You can also try running this command with the -Verbose switch for more information:{0}{1}" -f [Environment]::NewLine, $packOutput
+		    throw "TEST123 Could not determine where NuGet Package was created to. This typically means that an error occurred while NuGet.exe was packing it. Look for errors from NuGet.exe above (in the console window), or in the following NuGet.exe output. You can also try running this command with the -Verbose switch for more information:{0}{1}" -f [Environment]::NewLine, $packOutput
 	    }
 	}
     # Else we were given a Package file to push.
