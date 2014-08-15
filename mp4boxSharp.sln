@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mp4boxSharp", "mp4boxSharp\mp4boxSharp.csproj", "{B353B7D7-EF82-458B-87BD-44CDAD757C60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mp4boxSharpDemo", "mp4boxSharpDemo\mp4boxSharpDemo.csproj", "{84D77555-709F-4AEB-95BD-FCD059D51ADD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProjectMp4boxSharp", "UnitTestProjectMp4boxSharp\UnitTestProjectMp4boxSharp.csproj", "{8429C080-1A8D-4874-B0F9-913383E50D8A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B353B7D7-EF82-458B-87BD-44CDAD757C60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B353B7D7-EF82-458B-87BD-44CDAD757C60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B353B7D7-EF82-458B-87BD-44CDAD757C60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B353B7D7-EF82-458B-87BD-44CDAD757C60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84D77555-709F-4AEB-95BD-FCD059D51ADD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84D77555-709F-4AEB-95BD-FCD059D51ADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84D77555-709F-4AEB-95BD-FCD059D51ADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84D77555-709F-4AEB-95BD-FCD059D51ADD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8429C080-1A8D-4874-B0F9-913383E50D8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8429C080-1A8D-4874-B0F9-913383E50D8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8429C080-1A8D-4874-B0F9-913383E50D8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8429C080-1A8D-4874-B0F9-913383E50D8A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
