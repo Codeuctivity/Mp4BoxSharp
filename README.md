@@ -3,9 +3,11 @@ Mp4BoxSharp
 
 ## How to get Mp4BoxSharp
 
-To use you are free to grab the code from here or to use the nuget-package I created:
+- Grab the source from GitHub, or
+- Get it from Nuget:
 
-** PM> Install-Package Mp4BoxSharp  **
+**PM> Install-Package Mp4BoxSharp**
+
 https://www.nuget.org/packages/Mp4BoxSharp/
 
 ## Example
