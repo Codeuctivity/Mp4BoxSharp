@@ -18,14 +18,14 @@ namespace UnitTestProjectMp4boxSharp
             sourcelist.Add(new Uri(getDirectoryOfAssembly() + "\\source2.mp4"));
 
             Assert.IsTrue(mp4boxSync.concatMp4s(sourcelist, new Uri(testContextInstance.ResultsDirectory + "\\TestOutput.mp4")));
-
         }
+
         private static string getDirectoryOfAssembly()
         {
             return System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
         }
-        private TestContext testContextInstance;
 
+        private TestContext testContextInstance;
 
         /// <summary>
         ///Gets or sets the test context which provides

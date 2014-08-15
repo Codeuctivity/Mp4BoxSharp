@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace mp4boxSharp
 {
@@ -14,14 +11,14 @@ namespace mp4boxSharp
     public class mp4BoxSharpAsync : mp4BoxSharp
     {
         /// <summary>
-        /// Contains exitcode of mp4box and everything from standarderror
+        /// Contains exitcode of mp4box and everything from consolOutput
         /// </summary>
         public string result;
 
         /// <summary>
-        /// Contains standardoutput of mp4box, filled asynchron
+        /// Contains ConsolOutput of mp4box, filled asynchron
         /// </summary>
-        public string stdOutput;
+        public string mp4BoxConsolOutput;
 
         /// <summary>
         /// Contains prgress paresed from mp4box
@@ -47,7 +44,7 @@ namespace mp4boxSharp
             backgroundWorker1.ProgressChanged += new ProgressChangedEventHandler(backgroundWorker1_ProgressChanged);
 
             result = null;
-            stdOutput = null;
+            mp4BoxConsolOutput = null;
             Mp4BoxParameters parameters;
             parameters.Sources = sources;
             parameters.Destination = destination;
@@ -117,10 +114,7 @@ namespace mp4boxSharp
             try
             {
                 Process p = new Process();
-                //Asynchron read of standardoutput:
                 //http://msdn.microsoft.com/de-de/library/system.diagnostics.process.beginoutputreadline.aspx
-               // p.ErrorDataReceived += new DataReceivedEventHandler(p_ErrorDataReceived);
-                //p.StartInfo.FileName = @"mencoder.exe";
                 p.StartInfo.FileName = pathToMp4boxExe;
                 //http://msdn.microsoft.com/de-de/library/system.diagnostics.processstartinfo.redirectstandardoutput.aspx
                 p.StartInfo.RedirectStandardOutput = true;
@@ -133,10 +127,9 @@ namespace mp4boxSharp
                 }
                 p.StartInfo.Arguments = concatedParameterAndSources + "\"" + parameter.Destination.LocalPath + "\"";
                 p.Start();
-                //nur eins darf synchron gelesen werden!! http://msdn.microsoft.com/de-de/library/system.diagnostics.processstartinfo.redirectstandarderror.aspx
-                //p.BeginErrorReadLine();
+                //either StandardError or StandardOutput may be read synchronous  http://msdn.microsoft.com/de-de/library/system.diagnostics.processstartinfo.redirectstandarderror.aspx
                 string standardError;
-                int progress =0;
+                int progress = 0;
                 while (((standardError = p.StandardError.ReadLine()) != null) && (!worker.CancellationPending))
                 {
                     if (standardError.TrimEnd().EndsWith("/100)"))
@@ -152,7 +145,7 @@ namespace mp4boxSharp
                 if (!worker.CancellationPending)
                 {
                     p.WaitForExit();
-                    e.Result = "Mencoder Exited with the Exitcode: " + p.ExitCode.ToString() + "\n" + standardError;
+                    e.Result = "Mp4Box Exited with the Exitcode: " + p.ExitCode.ToString() + "\n" + standardError;
                 }
                 else
                 {
@@ -169,89 +162,6 @@ namespace mp4boxSharp
             }
         }
 
-        /// <summary>
-        /// Handles the DoWork event of the backgroundWorker2 control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="DoWorkEventArgs" /> instance containing the event data.</param>
-        private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
-        {
-            // Get the BackgroundWorker that raised this event.
-            BackgroundWorker worker = sender as BackgroundWorker;
-            // Assign the result of the computation
-            // to the Result property of the DoWorkEventArgs
-            // object. This is will be available to the
-            // RunWorkerCompleted eventhandler.
-            List<Mp4BoxParameters> parameters = (List<Mp4BoxParameters>)(e.Argument);
-            try
-            {
-                int alreadyDoneSubJobs = 0;
-                foreach (var parameter in parameters)
-                {
-                    Process p = new Process();
-                    //Asynchron read of standardoutput:
-                    //http://msdn.microsoft.com/de-de/library/system.diagnostics.process.beginoutputreadline.aspx
-                   // p.ErrorDataReceived += new DataReceivedEventHandler(p_ErrorDataReceived);
-                    p.StartInfo.FileName = @"mencoder.exe";
-                    //http://msdn.microsoft.com/de-de/library/system.diagnostics.processstartinfo.redirectstandardoutput.aspx
-                    p.StartInfo.RedirectStandardOutput = true;
-                    p.StartInfo.RedirectStandardError = true;
-                    p.StartInfo.UseShellExecute = false;
-                    p.StartInfo.CreateNoWindow = true;
-                    p.StartInfo.Arguments = "\"" + parameter.Sources + "\" "  + " -o \"" + parameter.Destination + "\"";
-                    p.Start();
-                    //nur eins darf synchron gelesen werden!! http://msdn.microsoft.com/de-de/library/system.diagnostics.processstartinfo.redirectstandarderror.aspx
-                   // p.BeginErrorReadLine();
-                    string standardError;
-                    while (((standardError = p.StandardError.ReadLine()) != null) && (!worker.CancellationPending))
-                    {
-                        if (standardError.StartsWith("Pos:"))
-                        {
-                            string progress = standardError.Split('(')[1].Substring(0, 2).Trim();
-                            worker.ReportProgress(Convert.ToInt32(progress) / parameters.Count + 100 / alreadyDoneSubJobs, standardError);
-                        }
-                        else
-                        {
-                            worker.ReportProgress(0, standardError);
-                        }
-                    }
-                    if (!worker.CancellationPending)
-                    {
-                        p.WaitForExit();
-                        e.Result = "Mp4Box Exited with the Exitcode: " + p.ExitCode.ToString() + "\n" + standardError;
-                    }
-                    else
-                    {
-                        e.Result = "Canceld!";
-                        p.Close();
-                        p.CancelErrorRead();
-                        p.Dispose();
-                    }
-                    alreadyDoneSubJobs++;
-                }
-            }
-            catch (Exception ex)
-            {
-                e.Result = ex.Message;
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// The standard error
-        /// </summary>
-        private string standardError;
-
-        /// <summary>
-        /// Handles the ErrorDataReceived event of the p control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="DataReceivedEventArgs" /> instance containing the event data.</param>
-        private void p_ErrorDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            standardError += e.Data;
-        }
-
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             // First, handle the case where an exception was thrown.
@@ -260,7 +170,6 @@ namespace mp4boxSharp
                 throw e.Error;
             }
             result = (string)e.Result;
-            //OnFinished(new EventArgs());
             OnFinished(e);
         }
 
@@ -268,7 +177,11 @@ namespace mp4boxSharp
         /// The remember last line
         /// </summary>
         private string rememberLastLine;
-        private object concatedParameterAndSources;
+
+        /// <summary>
+        /// The concated parameter and sources
+        /// </summary>
+        private string concatedParameterAndSources;
 
         /// <summary>
         /// Handles the ProgressChanged event of the backgroundWorker1 control.
@@ -281,18 +194,18 @@ namespace mp4boxSharp
             progress = e.ProgressPercentage;
             if (progress == 0)
             {
-                stdOutput += userstate + "\n";
+                mp4BoxConsolOutput += userstate + "\n";
             }
             else
             {
                 if (rememberLastLine == null)
                 {
                     rememberLastLine = userstate;
-                    stdOutput += userstate + "\n";
+                    mp4BoxConsolOutput += userstate + "\n";
                 }
                 else
                 {
-                    stdOutput = stdOutput.Replace(rememberLastLine, userstate);
+                    mp4BoxConsolOutput = mp4BoxConsolOutput.Replace(rememberLastLine, userstate);
                     rememberLastLine = userstate;
                 }
             }

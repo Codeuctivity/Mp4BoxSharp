@@ -191,7 +191,6 @@
             this.textBoxSourcesSync.Name = "textBoxSourcesSync";
             this.textBoxSourcesSync.Size = new System.Drawing.Size(173, 20);
             this.textBoxSourcesSync.TabIndex = 1;
-            this.textBoxSourcesSync.TextChanged += new System.EventHandler(this.textBoxSourcesSync_TextChanged);
             // 
             // buttonStartConcatinationSync
             // 
