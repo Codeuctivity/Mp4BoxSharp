@@ -4,9 +4,6 @@ using System.Diagnostics;
 
 namespace mp4boxSharp
 {
-    /// <summary>
-    /// Mencoderwrapper synchron
-    /// </summary>
     public class mp4BoxSharpSync : mp4BoxSharp
     {
         public bool mp4BoxConcat(List<Uri> sources, Uri destination)

@@ -64,7 +64,7 @@ namespace mp4boxSharp
         //Events without custom args:
         //http://msdn.microsoft.com/en-us/library/ms182178(VS.80).aspx
         /// <summary>
-        /// Fires when mencoder is done
+        /// Fires when mp4box is done
         /// </summary>
         public event EventHandler Finished;
 
@@ -132,6 +132,7 @@ namespace mp4boxSharp
                 int progress = 0;
                 while (((standardError = p.StandardError.ReadLine()) != null) && (!worker.CancellationPending))
                 {
+                    mp4BoxConsolOutput += standardError;
                     if (standardError.TrimEnd().EndsWith("/100)"))
                     {
                         progress = Convert.ToInt32(standardError.Split('(')[1].Substring(0, 2).Trim());
@@ -145,7 +146,7 @@ namespace mp4boxSharp
                 if (!worker.CancellationPending)
                 {
                     p.WaitForExit();
-                    e.Result = "Mp4Box Exited with the Exitcode: " + p.ExitCode.ToString() + "\n" + standardError;
+                    e.Result = "Mp4Box Exited with the Exitcode: " + p.ExitCode.ToString() + "\n" + mp4BoxConsolOutput;
                 }
                 else
                 {

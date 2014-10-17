@@ -12,25 +12,25 @@ namespace mp4boxSharp
     }
 
     /// <summary>
-    /// Baseclass for async and syncmencodercalls
+    /// Baseclass for async and syncmp4BoxSharp
     /// </summary>
     public abstract class mp4BoxSharp
     {
         /// <summary>
-        /// The path to mencoder exe
+        /// The path to mp4box exe
         /// </summary>
         internal string pathToMp4boxExe;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MencoderAsync"/> class.
+        /// Initializes a new instance of the <see cref="mp4BoxSharp"/> class.
         /// </summary>
         public mp4BoxSharp()
         {
-            pathToMp4boxExe = getPathToMencoderBin();
+            pathToMp4boxExe = getPathToMp4BoxSharpBin();
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MencoderAsync"/> class.
+        /// Initializes a new instance of the <see cref="Mp4BoxAsync"/> class.
         /// </summary>
         /// <param name="pathToExternalMencoderExe">The path to external mencoder exe.</param>
         public mp4BoxSharp(string pathToExternalMencoderExe)
@@ -45,10 +45,10 @@ namespace mp4boxSharp
         }
 
         /// <summary>
-        /// Gets the path to mencoder bin.
+        /// Gets the path to MP4 box sharp bin.
         /// </summary>
         /// <returns></returns>
-        public string getPathToMencoderBin()
+        public string getPathToMp4BoxSharpBin()
         {
             string path = Path.GetTempPath() + @"\mp4box" + Guid.NewGuid() + ".exe";
             if (!File.Exists(path))

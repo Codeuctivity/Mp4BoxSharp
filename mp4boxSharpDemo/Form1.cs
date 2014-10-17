@@ -110,7 +110,8 @@ namespace mp4boxSharpDemo
 
         private void mp4BoxSharpAsync_Finished(object sender, EventArgs e)
         {
-            richTextBoxLogAsync.Text += "done\n";
+
+            richTextBoxLogAsync.Text += mp4BoxSharpAsync.result;
         }
 
         private void mp4BoxSharpAsync_Progress(object sender, EventArgs e)
