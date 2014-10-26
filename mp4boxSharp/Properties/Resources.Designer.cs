@@ -63,9 +63,49 @@ namespace mp4boxSharp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] js {
+            get {
+                object obj = ResourceManager.GetObject("js", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] libeay32 {
+            get {
+                object obj = ResourceManager.GetObject("libeay32", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] libgpac {
+            get {
+                object obj = ResourceManager.GetObject("libgpac", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] mp4box {
             get {
                 object obj = ResourceManager.GetObject("mp4box", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] ssleay32 {
+            get {
+                object obj = ResourceManager.GetObject("ssleay32", resourceCulture);
                 return ((byte[])(obj));
             }
         }

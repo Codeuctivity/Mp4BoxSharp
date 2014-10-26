@@ -62,7 +62,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="mp4box.exe" />
+    <None Include="gpacBins\GPAC.7z" />
     <None Include="seeland.biz.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +76,14 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="gpacBins\js.dll" />
+    <Content Include="gpacBins\libeay32.dll" />
+    <Content Include="gpacBins\libgpac.dll" />
+    <Content Include="gpacBins\mp4box.exe" />
+    <Content Include="gpacBins\ssleay32.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

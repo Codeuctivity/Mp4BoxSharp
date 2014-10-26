@@ -26,6 +26,7 @@ namespace mp4boxSharp
         /// </summary>
         public mp4BoxSharp()
         {
+            mp4boxSharpShouldBeDeletedOnDisposing = true;
             pathToMp4boxExe = getPathToMp4BoxSharpBin();
         }
 
@@ -36,12 +37,15 @@ namespace mp4boxSharp
         public mp4BoxSharp(string pathToExternalMencoderExe)
         { pathToMp4boxExe = pathToExternalMencoderExe; }
 
+        private bool mp4boxSharpShouldBeDeletedOnDisposing;
+
         /// <summary>
         /// Finalizes an instance of the <see cref="MencoderAsync"/> class.
         /// </summary>
         ~mp4BoxSharp()
         {
-            File.Delete(pathToMp4boxExe);
+            if (mp4boxSharpShouldBeDeletedOnDisposing)
+                Directory.Delete(Path.GetDirectoryName((pathToMp4boxExe)), true);
         }
 
         /// <summary>
@@ -50,14 +54,25 @@ namespace mp4boxSharp
         /// <returns></returns>
         public string getPathToMp4BoxSharpBin()
         {
-            string path = Path.GetTempPath() + @"\mp4box" + Guid.NewGuid() + ".exe";
+            string directory = Path.GetTempPath() + @"\" + Guid.NewGuid() + @"\";
+            Directory.CreateDirectory(directory);
+            saveBinToTempFolder(directory + "libgpac.dll", mp4boxSharp.Properties.Resources.libgpac);
+            saveBinToTempFolder(directory + "js.dll", mp4boxSharp.Properties.Resources.js);
+            saveBinToTempFolder(directory + "libeay32.dll", mp4boxSharp.Properties.Resources.libeay32);
+            saveBinToTempFolder(directory + "ssleay32.dll", mp4boxSharp.Properties.Resources.ssleay32);
+            saveBinToTempFolder(directory + "mp4box.exe", mp4boxSharp.Properties.Resources.mp4box);
+            return directory + "mp4box.exe";
+        }
+
+        private static void saveBinToTempFolder(string fileName, byte[] file)
+        {
+            string path = fileName;
+
             if (!File.Exists(path))
                 using (FileStream fsDst = new FileStream(path, FileMode.CreateNew, FileAccess.Write))
                 {
-                    byte[] bytes = mp4boxSharp.Properties.Resources.mp4box;
-                    fsDst.Write(bytes, 0, bytes.Length);
+                    fsDst.Write(file, 0, file.Length);
                 }
-            return path;
         }
     }
 }
