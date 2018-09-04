@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/cbw5itqw2niv2pqs?svg=true)](https://ci.appveyor.com/project/stesee/mp4boxsharp)
+
 Mp4BoxSharp
 ===========
 
